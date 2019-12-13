@@ -7,31 +7,76 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel="stylesheet" href="main.css">
   <script src="vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-  <script src="datamaps.world.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="datamaps.world.js"></script>
 </head>
 <body>
   <h1><a href="/">DC Global</a></h1>
   <div id="app" class="container">
-    <div id="worldmap">
-
-    </div>
+    <div id="worldmap"></div>
   </div>
   <footer>
   </footer>
 </body>
 <script>
-  var app = new Vue({
-    el: '#app',
-    data: {
-    },
-    mounted() {
-      var map = new Datamap({element: document.getElementById('worldmap')});
-    },
-    methods: {
-    }
-  })
+ var app = new Vue({
+   el: '#app',
+   data: {
+   },
+   mounted() {
+     var map = new Datamap({
+       element: document.getElementById('worldmap'),
+       fills: {
+         HIGH: 'orange',
+         LABEL: 'blue',
+         defaultFill: 'gray'
+       },
+       data: {
+         IRL: {
+           fillKey: 'HIGH'
+         },
+         USA: {
+           fillKey: 'HIGH'
+         },
+         AUS: {
+           fillKey: 'HIGH'
+         },
+         IND: {
+           fillKey: 'HIGH'
+         },
+         DEU: {
+           fillKey: 'HIGH'
+         }
+       },
+     });
+
+     var dcguys = [{
+       name: 'Stephen',
+       radius: 10,
+       country: 'Ireland',
+       fillKey: 'LABEL',
+       dc: 'Data center',
+       work_hours: '9-5pm',
+       latitude: 53.3498,
+       longitude: -6.2603,
+       image: "40922-1-1.jpg"
+     }];
+
+     //draw bubbles for bombs
+     map.bubbles(dcguys, {
+       popupTemplate: function (geo, data) {
+         return ['<div class="hoverinfo">' +  data.name,
+                 '<br/>Country: ' +  data.country + '',
+                 '<br/>Data Center: ' + data.dc + '',
+                 '<br/>Working Hours: ' + data.work_hours + '',
+                 '</div>'].join('');
+       }
+     });
+   },
+   methods: {
+   }
+ })
 </script>
 </html>
