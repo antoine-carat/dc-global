@@ -10,11 +10,11 @@
 - id: Atlanta
   latitude: 33.7490
   longitude: -84.3880
-  country: United States of America
+  country: USA
 - id: Sacramento
   latitude: 38.5816
   longitude: -121.4944
-  country: United States of America
+  country: USA
 - id: Sydney
   latitude: -33.8688
   longitude: 151.2093
