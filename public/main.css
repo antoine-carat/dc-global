@@ -40,3 +40,13 @@
     justify-content: center;
     align-content: center;
 }
+
+#clock {
+  text-align: center;
+  font-size: xx-large;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.datamaps-bubble {
+  cursor: pointer;
+}

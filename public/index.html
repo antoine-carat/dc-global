@@ -11,6 +11,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
   <script src="datamaps.world.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div id="sidebar">
@@ -52,58 +53,92 @@
  var app = new Vue({
    el: '#app',
    data: {
+     currentTime: "0:00:00",
+     datacenters: []
    },
    mounted() {
-     var map = new Datamap({
-       element: document.getElementById('worldmap'),
-       fills: {
-         HIGH: 'orange',
-         LABEL: 'blue',
-         defaultFill: 'gray'
-       },
-       data: {
-         IRL: {
-           fillKey: 'HIGH'
-         },
-         USA: {
-           fillKey: 'HIGH'
-         },
-         AUS: {
-           fillKey: 'HIGH'
-         },
-         IND: {
-           fillKey: 'HIGH'
-         },
-         DEU: {
-           fillKey: 'HIGH'
-         }
-       },
-     });
+    this.startTime()
+    axios.get('/datacenters')
+      .then( response => {
+        this.datacenters = response.data
+        var map = new Datamap({
+          element: document.getElementById('worldmap'),
+          fills: {
+            HIGH: 'orange',
+            LABEL: 'green',
+            defaultFill: 'slategray'
+          },
+          data: {
+            IRL: { fillKey: 'HIGH' },
+            USA: { fillKey: 'HIGH' },
+            AUS: { fillKey: 'HIGH' },
+            IND: { fillKey: 'HIGH' },
+            DEU: { fillKey: 'HIGH' }
+          },
+        });
 
-     var dcguys = [{
-       name: 'Stephen',
-       radius: 10,
-       country: 'Ireland',
-       fillKey: 'LABEL',
-       dc: 'Data center',
-       work_hours: '9-5pm',
-       latitude: 53.3498,
-       longitude: -6.2603,
-       image: "40922-1-1.jpg"
-     }];
+        // var dcguys = [{
+        //   name: 'Steve Kearns',
+        //   fillKey: 'LABEL',
+        //   dc_id: '123456',
+        //   work_hours: '9-5pm',
+        //   image: "40922-1-1.jpg"
+        // }];
+          
+        // let datacenters = [{
+        //   radius: 20,
+        //   id: "123456",
+        //   city: "Dublin",
+        //   country: "Ireland",
+        //   latitude: 53.3498,
+        //   longitude: -6.2603,
+        //   fillKey: 'LABEL'
+        // },
+        // {
+        //   radius: 20,
+        //   id: "123456",
+        //   city: "Atlanta",
+        //   country: "USA",
+        //   latitude: 33.7490,
+        //   longitude: -84.3880,
+        //   fillKey: 'LABEL'
+        // }]
 
-     //draw bubbles for bombs
-     map.bubbles(dcguys, {
-       popupTemplate: function (geo, data) {
-         return ['<div class="hoverinfo">' +  data.name,
-                 '<br/>Country: ' +  data.country + '',
-                 '<br/>Data Center: ' + data.dc + '',
-                 '<br/>Working Hours: ' + data.work_hours + '',
-                 '</div>'].join('');
-       }
-     });
+        // Draw bubbles
+        const DCS = this.datacenters.map( e => {
+          return {
+            ...e,
+            radius: 20,
+            fillKey: 'LABEL'
+          }
+        })
+        map.bubbles(DCS, { popupTemplate: function (geo, data) {
+          return ['<div class="hoverinfo">' +  data.name,
+          '<br/>City: ' +  data.id,
+          '<br/>Country: ' +  data.country + '',
+          '<br/>Date: ' +  data.date + '',
+          '</div>'].join('');
+        }});
+      })
+      .catch( error => {
+        console.error(error)
+      });
    },
    methods: {
+    startTime: function () {
+      var today = new Date();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      m = this.checkTime(m);
+      s = this.checkTime(s);
+      this.currentTime = h + ":" + m + ":" + s;
+      var t = setTimeout(this.startTime, 500);
+    },
+    checkTime: function (i) {
+      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i;
+    }
    }
  })
 </script>
