@@ -5,7 +5,7 @@ require 'openssl'
 class BambooApi
     def initialize(api_key)
         @api_key = api_key
-        @base_url = 'https://api.bamboohr.com/api/gateway.php/browserstack/v1/employees/directory'
+        @base_url = 'https://api.bamboohr.com/api/gateway.php/browserstack/'
     end
 
     def get(url)
@@ -16,6 +16,7 @@ class BambooApi
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
         request = Net::HTTP::Get.new(url)
+        request.basic_auth('51b173b2561d92e8efa344d6345f56f656300683', 'x')
 
         response = http.request(request)
         Nokogiri::XML(response.read_body)
