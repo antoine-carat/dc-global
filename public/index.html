@@ -150,13 +150,6 @@
               let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
               let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
 
-              setInterval(() => {
-                let d = new Date();
-                let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-                let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
-                document.getElementById(`time-${data.id}`).innerHTML = "Local time: " + nd
-              }, 500)
-
               let infoArray = ['<div class="hoverinfo">']
               
               EMPLOYEES.forEach((item, index) => {
