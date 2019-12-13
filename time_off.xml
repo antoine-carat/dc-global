@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<calendar>
+    <item type="timeOff">
+        <request id="11044"/>
+        <employee id="41276">Dillon Friel</employee>
+        <start>2019-11-29</start>
+        <end>2019-12-14</end>
+    </item>
+    <item type="timeOff">
+        <request id="12166"/>
+        <employee id="41271">Pratik Agarwal</employee>
+        <start>2019-11-30</start>
+        <end>2019-12-16</end>
+    </item>
+    <item type="timeOff">
+        <request id="10527"/>
+        <employee id="40987">Kaustubh Mahajan</employee>
+        <start>2019-12-06</start>
+        <end>2019-12-19</end>
+    </item>
+    <item type="timeOff">
+        <request id="11999"/>
+        <employee id="41202">Aayush Kapoor</employee>
+        <start>2019-12-07</start>
+        <end>2019-12-15</end>
+    </item>
+    <item type="timeOff">
+        <request id="12305"/>
+        <employee id="41152">Vaibhav Jain</employee>
+        <start>2019-12-07</start>
+        <end>2019-12-19</end>
+    </item>
+    <item type="timeOff">
+        <request id="12114"/>
+        <employee id="41072">Kalpak Bhinde</employee>
+        <start>2019-12-09</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="12335"/>
+        <employee id="41149">Neha Jain</employee>
+        <start>2019-12-09</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="12549"/>
+        <employee id="41171">Trinisha Jain</employee>
+        <start>2019-12-09</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12445"/>
+        <employee id="41052">Arzoo Bathla</employee>
+        <start>2019-12-11</start>
+        <end>2019-12-20</end>
+    </item>
+    <item type="timeOff">
+        <request id="12261"/>
+        <employee id="41068">Nisarg Mehta</employee>
+        <start>2019-12-11</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="12143"/>
+        <employee id="40714">Raunak Pilani</employee>
+        <start>2019-12-11</start>
+        <end>2019-12-16</end>
+    </item>
+    <item type="timeOff">
+        <request id="12540"/>
+        <employee id="40786">Roncy Patel</employee>
+        <start>2019-12-13</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="12617"/>
+        <employee id="41225">Upesh Vishwakarma</employee>
+        <start>2019-12-13</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="12621"/>
+        <employee id="41556">Souman Mandal</employee>
+        <start>2019-12-13</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="12628"/>
+        <employee id="40978">Varun Gupta</employee>
+        <start>2019-12-13</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="12633"/>
+        <employee id="40760">Harish Ved</employee>
+        <start>2019-12-13</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="12346"/>
+        <employee id="41222">Manoj Gupta</employee>
+        <start>2019-12-13</start>
+        <end>2019-12-13</end>
+    </item>
+    <item type="timeOff">
+        <request id="11495"/>
+        <employee id="41077">Anshul Patel</employee>
+        <start>2019-12-16</start>
+        <end>2019-12-19</end>
+    </item>
+    <item type="timeOff">
+        <request id="12000"/>
+        <employee id="41295">James Barboza</employee>
+        <start>2019-12-16</start>
+        <end>2019-12-20</end>
+    </item>
+    <item type="timeOff">
+        <request id="12622"/>
+        <employee id="40958">Sahil Raka</employee>
+        <start>2019-12-19</start>
+        <end>2019-12-20</end>
+    </item>
+    <item type="timeOff">
+        <request id="11775"/>
+        <employee id="41468">Mohammed Raafi</employee>
+        <start>2019-12-19</start>
+        <end>2019-12-31</end>
+    </item>
+    <item type="timeOff">
+        <request id="12317"/>
+        <employee id="41306">Pratik Nalage</employee>
+        <start>2019-12-19</start>
+        <end>2019-12-19</end>
+    </item>
+    <item type="timeOff">
+        <request id="12216"/>
+        <employee id="41342">Aakanksha Anmol</employee>
+        <start>2019-12-20</start>
+        <end>2020-01-06</end>
+    </item>
+    <item type="timeOff">
+        <request id="12268"/>
+        <employee id="41269">Manasi Bhide</employee>
+        <start>2019-12-20</start>
+        <end>2019-12-20</end>
+    </item>
+    <item type="timeOff">
+        <request id="11681"/>
+        <employee id="41485">Anthony Fernandes</employee>
+        <start>2019-12-20</start>
+        <end>2019-12-20</end>
+    </item>
+    <item type="timeOff">
+        <request id="12030"/>
+        <employee id="41185">Sean Fernandes</employee>
+        <start>2019-12-21</start>
+        <end>2019-12-29</end>
+    </item>
+    <item type="timeOff">
+        <request id="12127"/>
+        <employee id="41077">Anshul Patel</employee>
+        <start>2019-12-21</start>
+        <end>2019-12-25</end>
+    </item>
+    <item type="timeOff">
+        <request id="12550"/>
+        <employee id="41197">Abhishek Jain</employee>
+        <start>2019-12-21</start>
+        <end>2019-12-29</end>
+    </item>
+    <item type="timeOff">
+        <request id="12001"/>
+        <employee id="41202">Aayush Kapoor</employee>
+        <start>2019-12-21</start>
+        <end>2020-01-05</end>
+    </item>
+    <item type="timeOff">
+        <request id="11401"/>
+        <employee id="41053">Pradeep Krishnakumar</employee>
+        <start>2019-12-21</start>
+        <end>2020-01-01</end>
+    </item>
+    <item type="timeOff">
+        <request id="11338"/>
+        <employee id="41287">Rahul Jaisinghani</employee>
+        <start>2019-12-21</start>
+        <end>2019-12-28</end>
+    </item>
+    <item type="timeOff">
+        <request id="12596"/>
+        <employee id="41256">Abhishek Rai</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12595"/>
+        <employee id="41164">Antoine Carat</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12579"/>
+        <employee id="41540">Jonathan Riis</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-23</end>
+    </item>
+    <item type="timeOff">
+        <request id="12568"/>
+        <employee id="41395">Dhruvil Shah</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12563"/>
+        <employee id="41497">Henry Kunjumon</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12554"/>
+        <employee id="41063">Ansul Jindal</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12280"/>
+        <employee id="41357">Eric Fetterolf</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12364"/>
+        <employee id="41277">Isaac Dempsey</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12405"/>
+        <employee id="41397">Ravi Mohan</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12240"/>
+        <employee id="41084">Namrata Motwani</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12214"/>
+        <employee id="40740">Yohan Pereira</employee>
+        <start>2019-12-23</start>
+        <end>2020-01-03</end>
+    </item>
+    <item type="timeOff">
+        <request id="12192"/>
+        <employee id="41217">Ramita Rajaa</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12071"/>
+        <employee id="40720">Ashwin Gonsalves</employee>
+        <start>2019-12-23</start>
+        <end>2020-01-03</end>
+    </item>
+    <item type="timeOff">
+        <request id="11746"/>
+        <employee id="41314">Abhijeet Pratap Singh</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-31</end>
+    </item>
+    <item type="timeOff">
+        <request id="11689"/>
+        <employee id="41276">Dillon Friel</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="11682"/>
+        <employee id="41485">Anthony Fernandes</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-26</end>
+    </item>
+    <item type="timeOff">
+        <request id="11679"/>
+        <employee id="41095">Rasika Kelkar</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-31</end>
+    </item>
+    <item type="timeOff">
+        <request id="11141"/>
+        <employee id="40922">Steve Kearns</employee>
+        <start>2019-12-23</start>
+        <end>2019-12-23</end>
+    </item>
+    <item type="timeOff">
+        <request id="12232"/>
+        <employee id="41031">Ritwik Wadhwa</employee>
+        <start>2019-12-23</start>
+        <end>2020-01-01</end>
+    </item>
+    <item type="timeOff">
+        <request id="12276"/>
+        <employee id="41030">Madhusudan Sashtry</employee>
+        <start>2019-12-24</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12602"/>
+        <employee id="41451">Henson Machado</employee>
+        <start>2019-12-24</start>
+        <end>2020-01-01</end>
+    </item>
+    <item type="timeOff">
+        <request id="12553"/>
+        <employee id="41196">Sathyanarain Muralidharan</employee>
+        <start>2019-12-24</start>
+        <end>2020-01-03</end>
+    </item>
+    <item type="timeOff">
+        <request id="12527"/>
+        <employee id="41028">Melvin Chakunny</employee>
+        <start>2019-12-24</start>
+        <end>2019-12-25</end>
+    </item>
+    <item type="timeOff">
+        <request id="12477"/>
+        <employee id="40922">Steve Kearns</employee>
+        <start>2019-12-24</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12176"/>
+        <employee id="41524">Shawn Lobo</employee>
+        <start>2019-12-24</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12217"/>
+        <employee id="41342">Aakanksha Anmol</employee>
+        <start>2019-12-24</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="12152"/>
+        <employee id="41189">Payal Dinodia</employee>
+        <start>2019-12-24</start>
+        <end>2020-01-04</end>
+    </item>
+    <item type="timeOff">
+        <request id="12140"/>
+        <employee id="41477">Rohan Sunder</employee>
+        <start>2019-12-24</start>
+        <end>2019-12-25</end>
+    </item>
+    <item type="timeOff">
+        <request id="11428"/>
+        <employee id="41244">Tyson Dsouza</employee>
+        <start>2019-12-24</start>
+        <end>2019-12-24</end>
+    </item>
+    <item type="timeOff">
+        <request id="11376"/>
+        <employee id="41250">Abizer Singaporewala</employee>
+        <start>2019-12-24</start>
+        <end>2020-01-02</end>
+    </item>
+    <item type="timeOff">
+        <request id="8922"/>
+        <employee id="40888">Mark Gomes</employee>
+        <start>2019-12-24</start>
+        <end>2020-01-03</end>
+    </item>
+    <item type="timeOff">
+        <request id="12533"/>
+        <employee id="41191">Arpan Shukla</employee>
+        <start>2019-12-25</start>
+        <end>2019-12-29</end>
+    </item>
+    <item type="holiday">
+        <holiday id="121">Christmas </holiday>
+        <start>2019-12-25</start>
+        <end>2019-12-25</end>
+    </item>
+    <item type="timeOff">
+        <request id="12545"/>
+        <employee id="41539">Saransh Miglani</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12641"/>
+        <employee id="41399">Kailashchandra Sharma</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12589"/>
+        <employee id="40992">Kalam Shah</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12580"/>
+        <employee id="41540">Jonathan Riis</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-26</end>
+    </item>
+    <item type="timeOff">
+        <request id="12576"/>
+        <employee id="41214">Rajesh Chilka</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-26</end>
+    </item>
+    <item type="timeOff">
+        <request id="12571"/>
+        <employee id="40779">Dhairya Kothari</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12551"/>
+        <employee id="41346">Chirag Maniar</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="11768"/>
+        <employee id="41028">Melvin Chakunny</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-26</end>
+    </item>
+    <item type="timeOff">
+        <request id="12476"/>
+        <employee id="40984">Francis Fernandes</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12412"/>
+        <employee id="41379">Pallav Sharma</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12351"/>
+        <employee id="41273">Sumithra Gopalakrishnan</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-30</end>
+    </item>
+    <item type="timeOff">
+        <request id="12334"/>
+        <employee id="41496">Darshak Nanda</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12315"/>
+        <employee id="40956">Raj Patel</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-26</end>
+    </item>
+    <item type="timeOff">
+        <request id="12220"/>
+        <employee id="41396">Miresh Sonkamble</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12193"/>
+        <employee id="41217">Ramita Rajaa</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12064"/>
+        <employee id="41230">Nirnai Nevrekar</employee>
+        <start>2019-12-26</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="holiday">
+        <holiday id="122">St. Stephen's Day</holiday>
+        <start>2019-12-26</start>
+        <end>2019-12-26</end>
+    </item>
+    <item type="timeOff">
+        <request id="12014"/>
+        <employee id="41229">Stephen Colfer</employee>
+        <start>2019-12-27</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12116"/>
+        <employee id="40962">Eric Hironymous</employee>
+        <start>2019-12-27</start>
+        <end>2019-12-30</end>
+    </item>
+    <item type="timeOff">
+        <request id="12195"/>
+        <employee id="40922">Steve Kearns</employee>
+        <start>2019-12-27</start>
+        <end>2019-12-31</end>
+    </item>
+    <item type="timeOff">
+        <request id="12316"/>
+        <employee id="40956">Raj Patel</employee>
+        <start>2019-12-27</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12365"/>
+        <employee id="41277">Isaac Dempsey</employee>
+        <start>2019-12-27</start>
+        <end>2019-12-27</end>
+    </item>
+    <item type="timeOff">
+        <request id="12627"/>
+        <employee id="41009">Vinicius Zago Barbosa</employee>
+        <start>2019-12-27</start>
+        <end>2019-12-27</end>
+    </item>
+</calendar>
