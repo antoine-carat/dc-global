@@ -27,28 +27,44 @@
                     <circle id='top' cx="50" cy="50" r="50" fill="url(#image)"/>
                 </svg>
             </div>
+            <div>
+                <div id="datacenter"></div>
+                <div id="country"></div>
+            </div>
         </div>
     </div>
     <div id="main">
-        <div id="app" class="container">
+        <div onclick="closeSidebar()" id="app" class="container">
             <div id="worldmap"></div>
         </div>
     </div>
 </body>
 <script>
  var sidebar = false; // sidebar = true if sidebar is open
+ var bubbleclicked = false; // true if a sidebar has just been clicked
 
- function openSidebar() {
+ function openSidebar(data) {
    document.getElementById("sidebar").style.marginLeft = "0px";
+   updateSidebar(data);
 	 sidebar = true;
-   console.log("opensidebar");
+   console.log("open sidebar");
  }
 
  function closeSidebar() {
-   document.getElementById("sidebar").style.marginLeft = "-400px";
-	 sidebar = false;
-   console.log("close sidebar");
+   if (bubbleclicked == false) {
+     document.getElementById("sidebar").style.marginLeft = "-400px";
+	   sidebar = false;
+     console.log("close sidebar");
+   };
+   bubbleclicked = false;
  }
+
+ function updateSidebar(data) {
+   datacenter = data.id
+   document.getElementById("datacenter").innerHTML = data.id
+   document.getElementById("country").innerHTML = data.country
+
+ };
 
  var app = new Vue({
    el: '#app',
