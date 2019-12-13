@@ -1,7 +1,7 @@
 ---
 - id: Dublin
   latitude: 53.2771
-  longitude: 6.4149
+  longitude: -6.4149
   country: Ireland
 - id: Mumbai
   latitude: 19.0760
@@ -9,13 +9,13 @@
   country: India
 - id: Atlanta
   latitude: 33.7490
-  longitude: 84.3880
+  longitude: -84.3880
   country: United States of America
 - id: Sacramento
   latitude: 38.5816
-  longitude: 121.4944
+  longitude: -121.4944
   country: United States of America
 - id: Sydney
-  latitude: 33.8688
+  latitude: -33.8688
   longitude: 151.2093
   country: Australia  
