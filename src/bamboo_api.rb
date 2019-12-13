@@ -9,7 +9,7 @@ class BambooApi
     end
 
     def get(url)
-        url = URI(@base_url << url)
+        url = URI(@base_url + url)
 
         http = Net::HTTP.new(url.host, url.port)
         http.use_ssl = true
