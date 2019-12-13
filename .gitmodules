@@ -1,0 +1,3 @@
+[submodule "datamaps"]
+	path = datamaps
+	url = git@github.com:markmarkoh/datamaps.git
