@@ -1,0 +1,13 @@
+body {
+  min-width: 90vw;
+  min-height: 90vh;
+}
+
+#app {
+  width: 100%;
+}
+
+#worldmap {
+  width: 85vw;
+  height: 85vh;
+}
