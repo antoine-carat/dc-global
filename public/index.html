@@ -54,6 +54,7 @@
    el: '#app',
    data: {
      currentTime: "0:00:00",
+     employees: [],
      datacenters: []
    },
    mounted() {
@@ -63,48 +64,25 @@
         this.datacenters = response.data
         var map = new Datamap({
           element: document.getElementById('worldmap'),
+          geographyConfig: {
+            highlightOnHover: false,
+            borderColor: 'rgb(44, 44, 44)',
+            highlightFillColor: "blue"
+          },
           fills: {
             HIGH: 'orange',
             LABEL: 'green',
-            defaultFill: 'slategray'
+            defaultFill: 'silver',
+            highlightFillColor: 'blue'
           },
           data: {
             IRL: { fillKey: 'HIGH' },
             USA: { fillKey: 'HIGH' },
             AUS: { fillKey: 'HIGH' },
-            IND: { fillKey: 'HIGH' },
-            DEU: { fillKey: 'HIGH' }
+            IND: { fillKey: 'HIGH' }
           },
         });
 
-        // var dcguys = [{
-        //   name: 'Steve Kearns',
-        //   fillKey: 'LABEL',
-        //   dc_id: '123456',
-        //   work_hours: '9-5pm',
-        //   image: "40922-1-1.jpg"
-        // }];
-          
-        // let datacenters = [{
-        //   radius: 20,
-        //   id: "123456",
-        //   city: "Dublin",
-        //   country: "Ireland",
-        //   latitude: 53.3498,
-        //   longitude: -6.2603,
-        //   fillKey: 'LABEL'
-        // },
-        // {
-        //   radius: 20,
-        //   id: "123456",
-        //   city: "Atlanta",
-        //   country: "USA",
-        //   latitude: 33.7490,
-        //   longitude: -84.3880,
-        //   fillKey: 'LABEL'
-        // }]
-
-        // Draw bubbles
         const DCS = this.datacenters.map( e => {
           return {
             ...e,
@@ -112,13 +90,43 @@
             fillKey: 'LABEL'
           }
         })
-        map.bubbles(DCS, { popupTemplate: function (geo, data) {
-          return ['<div class="hoverinfo">' +  data.name,
-          '<br/>City: ' +  data.id,
-          '<br/>Country: ' +  data.country + '',
-          '<br/>Date: ' +  data.date + '',
-          '</div>'].join('');
-        }});
+
+        axios.get('/employees')
+          .then( response => {
+            const EMPLOYEES = response.data;
+            console.log(EMPLOYEES)
+            map.bubbles(DCS, { popupTemplate: function (geo, data) {
+
+              let d = new Date();
+              let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+              let nd = new Date(utc + (3600000*data.offset)).toLocaleTimeString();
+
+              let infoArray = ['<div class="hoverinfo">']
+              
+              EMPLOYEES.forEach((item, index) => {
+                // Hack4Stack.start
+                if (item.location == "Ireland") {
+                  item.location = "Dublin, Ireland"
+                }
+                // Hack4Stack.end
+                
+                if (item.location.includes(data.id)) {
+                  infoArray.push('<img src=' + item.photo_url + '/>')
+                  infoArray.push('<br/>Name: ' + item.first_name + ' ' + item.last_name)
+                }
+              })
+              infoArray.push('<br/>City: ' +  data.id + ', ' +  data.country),
+              infoArray.push('<br/>Local time: ' + nd),
+              infoArray.push('</div>')
+
+              // Iterate over employees to fill images and names
+
+              return infoArray.join('');
+            }});
+          })
+          .catch( error => {
+            console.error(error)
+          });
       })
       .catch( error => {
         console.error(error)
