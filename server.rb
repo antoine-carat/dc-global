@@ -33,4 +33,10 @@ class DCGlobalServer < Sinatra::Base
     status 200
     DATACENTERS.to_json
   end
+
+  get '/getholidays' do
+    status 200
+    holiers = Holybops.new("b25eb172e18b9e38984010f6eeaf5efd0c1fe555")
+    holiers.get_dates(params[:country_code], params[:year]).to_json
+  end
 end
