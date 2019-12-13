@@ -94,12 +94,14 @@
         axios.get('/employees')
           .then( response => {
             const EMPLOYEES = response.data;
-            console.log(EMPLOYEES)
+            console.log(DCS)
             map.bubbles(DCS, { popupTemplate: function (geo, data) {
 
+
+              // console.log(data.timezone.gmtOffset);
               let d = new Date();
               let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-              let nd = new Date(utc + (3600000*data.offset)).toLocaleTimeString();
+              let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
 
               let infoArray = ['<div class="hoverinfo">']
               
