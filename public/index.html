@@ -21,7 +21,7 @@
                 <svg width="100" height="100">
                     <defs>
                         <pattern id="image" patternUnits="userSpaceOnUse" height="100" width="100">
-                            <image x="0" y="0" height="100" width="100" xlink:href="40922-1-1.jpg"></image>
+                            <image id="image_url" x="0" y="0" height="100" width="100" xlink:href="40922-1-1.jpg"></image>
                         </pattern>
                     </defs>
                     <circle id='top' cx="50" cy="50" r="50" fill="url(#image)"/>
@@ -30,6 +30,8 @@
             <div>
                 <div id="datacenter"></div>
                 <div id="country"></div>
+                <div id="firstname"></div>
+                <div id="lastname"></div>
             </div>
         </div>
     </div>
@@ -64,6 +66,32 @@
    document.getElementById("datacenter").innerHTML = data.id
    document.getElementById("country").innerHTML = data.country
 
+   var xmlhttp = new XMLHttpRequest();
+
+   xmlhttp.onreadystatechange = function() {
+     if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+       if (xmlhttp.status == 200) {
+         var json = JSON.parse(xmlhttp.responseText);
+
+         for (i = 0; i < json.length; i++ ) {
+           if (json[i].city == data.id) {
+             document.querySelector("image_url").setAttributeNS('/', 'xlink:href', json[i].last_name + ".jpg");
+             document.getElementById("firstname").innerHTML = json[i].first_name;
+             document.getElementById("lastname").innerHTML = json[i].last_name;
+           };
+         };
+       }
+       else if (xmlhttp.status == 400) {
+         alert('There was an error 400');
+       }
+       else {
+         alert('something else other than 200 was returned');
+       }
+     }
+   };
+
+   xmlhttp.open("GET", "/employees", true);
+   xmlhttp.send();
  };
 
  var app = new Vue({
@@ -73,88 +101,88 @@
      datacenters: []
    },
    mounted() {
-    this.startTime()
-    axios.get('/datacenters')
-      .then( response => {
-        this.datacenters = response.data
-        var map = new Datamap({
-          element: document.getElementById('worldmap'),
-          fills: {
-            HIGH: 'orange',
-            LABEL: 'green',
-            defaultFill: 'slategray'
-          },
-          data: {
-            IRL: { fillKey: 'HIGH' },
-            USA: { fillKey: 'HIGH' },
-            AUS: { fillKey: 'HIGH' },
-            IND: { fillKey: 'HIGH' },
-            DEU: { fillKey: 'HIGH' }
-          },
-        });
+     this.startTime()
+     axios.get('/datacenters')
+         .then( response => {
+           this.datacenters = response.data
+           var map = new Datamap({
+             element: document.getElementById('worldmap'),
+             fills: {
+               HIGH: 'orange',
+               LABEL: 'green',
+               defaultFill: 'slategray'
+             },
+             data: {
+               IRL: { fillKey: 'HIGH' },
+               USA: { fillKey: 'HIGH' },
+               AUS: { fillKey: 'HIGH' },
+               IND: { fillKey: 'HIGH' },
+               DEU: { fillKey: 'HIGH' }
+             },
+           });
 
-        // var dcguys = [{
-        //   name: 'Steve Kearns',
-        //   fillKey: 'LABEL',
-        //   dc_id: '123456',
-        //   work_hours: '9-5pm',
-        //   image: "40922-1-1.jpg"
-        // }];
-          
-        // let datacenters = [{
-        //   radius: 20,
-        //   id: "123456",
-        //   city: "Dublin",
-        //   country: "Ireland",
-        //   latitude: 53.3498,
-        //   longitude: -6.2603,
-        //   fillKey: 'LABEL'
-        // },
-        // {
-        //   radius: 20,
-        //   id: "123456",
-        //   city: "Atlanta",
-        //   country: "USA",
-        //   latitude: 33.7490,
-        //   longitude: -84.3880,
-        //   fillKey: 'LABEL'
-        // }]
+           // var dcguys = [{
+           //   name: 'Steve Kearns',
+           //   fillKey: 'LABEL',
+           //   dc_id: '123456',
+           //   work_hours: '9-5pm',
+           //   image: "40922-1-1.jpg"
+           // }];
+           
+           // let datacenters = [{
+           //   radius: 20,
+           //   id: "123456",
+           //   city: "Dublin",
+           //   country: "Ireland",
+           //   latitude: 53.3498,
+           //   longitude: -6.2603,
+           //   fillKey: 'LABEL'
+           // },
+           // {
+           //   radius: 20,
+           //   id: "123456",
+           //   city: "Atlanta",
+           //   country: "USA",
+           //   latitude: 33.7490,
+           //   longitude: -84.3880,
+           //   fillKey: 'LABEL'
+           // }]
 
-        // Draw bubbles
-        const DCS = this.datacenters.map( e => {
-          return {
-            ...e,
-            radius: 20,
-            fillKey: 'LABEL'
-          }
-        })
-        map.bubbles(DCS, { popupTemplate: function (geo, data) {
-          return ['<div class="hoverinfo">' +  data.name,
-          '<br/>City: ' +  data.id,
-          '<br/>Country: ' +  data.country + '',
-          '<br/>Date: ' +  data.date + '',
-          '</div>'].join('');
-        }});
-      })
-      .catch( error => {
-        console.error(error)
-      });
+           // Draw bubbles
+           const DCS = this.datacenters.map( e => {
+             return {
+               ...e,
+               radius: 20,
+               fillKey: 'LABEL'
+             }
+           })
+           map.bubbles(DCS, { popupTemplate: function (geo, data) {
+             return ['<div class="hoverinfo">' +  data.name,
+                     '<br/>City: ' +  data.id,
+                     '<br/>Country: ' +  data.country + '',
+                     '<br/>Date: ' +  data.date + '',
+                     '</div>'].join('');
+           }});
+         })
+         .catch( error => {
+           console.error(error)
+         });
    },
    methods: {
-    startTime: function () {
-      var today = new Date();
-      var h = today.getHours();
-      var m = today.getMinutes();
-      var s = today.getSeconds();
-      m = this.checkTime(m);
-      s = this.checkTime(s);
-      this.currentTime = h + ":" + m + ":" + s;
-      var t = setTimeout(this.startTime, 500);
-    },
-    checkTime: function (i) {
-      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-      return i;
-    }
+     startTime: function () {
+       var today = new Date();
+       var h = today.getHours();
+       var m = today.getMinutes();
+       var s = today.getSeconds();
+       m = this.checkTime(m);
+       s = this.checkTime(s);
+       this.currentTime = h + ":" + m + ":" + s;
+       var t = setTimeout(this.startTime, 500);
+     },
+     checkTime: function (i) {
+       if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+       return i;
+     }
    }
  })
 </script>
