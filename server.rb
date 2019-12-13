@@ -6,7 +6,7 @@ require_relative 'src/employee'
 
 class DCGlobalServer < Sinatra::Base
   API = ::BambooApi.new('51b173b2561d92e8efa344d6345f56f656300683')
-  EMPLOYEE_IDS = [41276]
+  EMPLOYEE_IDS = ['41276']
   set :bind, '0.0.0.0'
 
   configure do
@@ -24,6 +24,6 @@ class DCGlobalServer < Sinatra::Base
 
   get '/employees' do
     status 200
-    ::Employee.all(EMPLOYEE_IDS, API).map(&:to_json).to_json
+    ::Employee.all(EMPLOYEE_IDS, API).to_json
   end
 end

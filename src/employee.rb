@@ -16,12 +16,12 @@ class Employee
     end
 
     def add_time_off(xml)
-        start_time = ::Date.parse(xml.xpath('//start')[0].content)
-        end_time = ::Date.parse(xml.xpath('//end')[0].content)
+        start_time = ::Date.parse(xml.xpath('start')[0].content)
+        end_time = ::Date.parse(xml.xpath('end')[0].content)
         @time_off << (start_time..end_time).to_a
     end
 
-    def to_json
+    def to_json(options={})
         {
             id: @id,
             first_name: @first_name,
