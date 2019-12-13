@@ -8,6 +8,7 @@ require_relative 'src/employee'
 class DCGlobalServer < Sinatra::Base
   API = ::BambooApi.new('51b173b2561d92e8efa344d6345f56f656300683')
   EMPLOYEE_IDS = YAML.load_file("#{File.dirname(__FILE__)}/config/employees.yml")
+  DATACENTERS = YAML.load_file("#{File.dirname(__FILE__)}/config/datacenters.yml")
   set :bind, '0.0.0.0'
 
   configure do
@@ -26,5 +27,10 @@ class DCGlobalServer < Sinatra::Base
   get '/employees' do
     status 200
     ::Employee.all(EMPLOYEE_IDS['ids'], API).to_json
+  end
+
+  get '/datacenters' do
+    status 200
+    DATACENTERS.to_json
   end
 end
