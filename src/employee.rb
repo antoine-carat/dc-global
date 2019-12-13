@@ -26,6 +26,7 @@ class Employee
             id: @id,
             first_name: @first_name,
             last_name: @last_name,
+            location: @location,
             photo_url: @photo_url,
             time_off: @time_off
         }.to_json
