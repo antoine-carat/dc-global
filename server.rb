@@ -25,6 +25,6 @@ class DCGlobalServer < Sinatra::Base
 
   get '/employees' do
     status 200
-    ::Employee.all(EMPLOYEE_IDS, API).map(&:to_json).to_json
+    ::Employee.all(EMPLOYEE_IDS, API).to_json
   end
 end
