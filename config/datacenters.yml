@@ -8,8 +8,8 @@
   longitude: 72.8777
   country: India
 - id: Atlanta
-  latitiude: 33.7490
-  longitude: -84.3880
+  latitude: 33.7490
+  longitude: 84.3880
   country: United States of America
 - id: Sacramento
   latitude: 38.5816
@@ -18,5 +18,4 @@
 - id: Sydney
   latitude: -33.8688
   longitude: 151.2093
-  country: Australia
-  
+  country: Australia  
