@@ -11,6 +11,7 @@ class Employee
         @first_name = xml.xpath("field[@id='firstName']")[0].content
         @last_name = xml.xpath("field[@id='lastName']")[0].content
         @photo_url = xml.xpath("field[@id='photoUrl']")[0].content
+        @location = xml.xpath("field[@id='location']")[0].content
         @time_off = []
     end
 
@@ -48,9 +49,3 @@ class Employee
         end
     end
 end
-
-# employees = File.open("emplyees.xml") { |f| Nokogiri::XML(f) }
-bamboo_api = BambooApi.new('51b173b2561d92e8efa344d6345f56f656300683')
-p Employee.all(['41276'], bamboo_api).map(&:to_json)
-
-

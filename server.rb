@@ -1,9 +1,12 @@
 require 'sinatra'
 require 'sinatra/cross_origin'
 require 'json'
+require_relative 'src/bamboo_api'
+require_relative 'src/employee'
 
 class DCGlobalServer < Sinatra::Base
-  API_KEY = '51b173b2561d92e8efa344d6345f56f656300683'
+  API = ::BambooApi.new('51b173b2561d92e8efa344d6345f56f656300683')
+  EMPLOYEE_IDS = [41276]
   set :bind, '0.0.0.0'
 
   configure do
@@ -17,5 +20,10 @@ class DCGlobalServer < Sinatra::Base
   get '/' do
     status 200
     File.read(File.join('public', 'index.html'))
+  end
+
+  get '/employees' do
+    status 200
+    ::Employee.all(EMPLOYEE_IDS, API).map(&:to_json).to_json
   end
 end
