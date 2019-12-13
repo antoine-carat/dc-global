@@ -75,9 +75,10 @@
        if (xmlhttp.status == 200) {
          var json = JSON.parse(xmlhttp.responseText);
 
+         console.log(json);
          for (i = 0; i < json.length; i++ ) {
-           if (json[i].city == data.id) {
-             document.querySelector("image_url").setAttributeNS('/', 'xlink:href', json[i].last_name + ".jpg");
+           if (json[i].location == data.id) {
+             document.querySelector("image").innerHTML = '<image x="0" y="0" height="100" width="100" xlink:href="' + json[i].last_name + '+.jpg"></image>';
              document.getElementById("firstname").innerHTML = json[i].first_name;
              document.getElementById("lastname").innerHTML = json[i].last_name;
            };
@@ -186,6 +187,83 @@
       .catch( error => {
         console.error(error)
       });
+=======
+     this.startTime()
+     axios.get('/datacenters')
+         .then( response => {
+           this.datacenters = response.data
+           var map = new Datamap({
+             element: document.getElementById('worldmap'),
+             geographyConfig: {
+               highlightOnHover: false,
+               borderColor: 'rgb(44, 44, 44)',
+               highlightFillColor: "blue"
+             },
+             fills: {
+               HIGH: 'orange',
+               LABEL: 'green',
+               defaultFill: 'silver',
+               highlightFillColor: 'blue'
+             },
+             data: {
+               IRL: { fillKey: 'HIGH' },
+               USA: { fillKey: 'HIGH' },
+               AUS: { fillKey: 'HIGH' },
+               IND: { fillKey: 'HIGH' }
+             },
+           });
+
+           const DCS = this.datacenters.map( e => {
+             return {
+               ...e,
+               radius: 20,
+               fillKey: 'LABEL'
+             }
+           })
+
+           axios.get('/employees')
+                           .then( response => {
+                             const EMPLOYEES = response.data;
+                             console.log(DCS)
+                             map.bubbles(DCS, { popupTemplate: function (geo, data) {
+
+
+                               // console.log(data.timezone.gmtOffset);
+                               let d = new Date();
+                               let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+                               let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
+
+                               let infoArray = ['<div class="hoverinfo">']
+
+                               EMPLOYEES.forEach((item, index) => {
+                                 // Hack4Stack.start
+                                 if (item.location == "Ireland") {
+                                   item.location = "Dublin, Ireland"
+                                 }
+                                 // Hack4Stack.end
+
+                                 if (item.location.includes(data.id)) {
+                                   infoArray.push('<img src=' + item.photo_url + '/>')
+                                   infoArray.push('<br/>Name: ' + item.first_name + ' ' + item.last_name)
+                                 }
+                               })
+                               infoArray.push('<br/>City: ' +  data.id + ', ' +  data.country),
+                                   infoArray.push('<br/>Local time: ' + nd),
+                                   infoArray.push('</div>')
+
+                               // Iterate over employees to fill images and names
+
+                               return infoArray.join('');
+                             }});
+                           })
+                           .catch( error => {
+                             console.error(error)
+                           });
+         })
+         .catch( error => {
+           console.error(error)
+         });
+>>>>>>> Stashed changes
    },
    methods: {
      startTime: function () {
