@@ -552,6 +552,7 @@
     }
 
     var bubbles = layer.selectAll('circle.datamaps-bubble').data( data, options.key );
+    var interval;
 
     bubbles
       .enter()
@@ -616,6 +617,13 @@
           return fillColor || fillData.defaultFill;
         })
         .on('mouseover', function ( datum ) {
+          interval = setInterval(() => {
+            let d = new Date();
+            let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            let nd = new Date((utc + datum.timezone.gmtOffset * 1000)).toLocaleTimeString();
+            document.getElementById(`time-${datum.id}`).innerHTML = "Local time: " + nd
+          }, 500)
+
           var $this = d3.select(this);
 
           if (options.highlightOnHover) {
@@ -641,6 +649,8 @@
           }
         })
         .on('mouseout', function ( datum ) {
+          clearInterval(interval)
+          
           var $this = d3.select(this);
 
           if (options.highlightOnHover) {
