@@ -556,9 +556,6 @@
     bubbles
       .enter()
         .append('svg:circle')
-        .attr('fill', function ( datum ) {
-          return `${datum.image}`
-        })
         .attr('class', 'datamaps-bubble')
         .attr('cx', function ( datum ) {
           var latLng;
@@ -581,7 +578,7 @@
           }
           else if ( datum.centered ) {
             if ( datum.centered === 'USA' ) {
-              latLng = self.projection([-98.58333, 39.83333])
+              latLng = self.projection([-98.58333, 39.83333]);
             } else {
               latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
             }
@@ -658,10 +655,11 @@
         })
       .on('click', function(d) {
         if (sidebar == false) {
-          openSidebar();
+          openSidebar(d);
         } else {
-          closeSidebar();
+          updateSidebar(d);
         }
+        bubbleclicked = true;
       });
 
     bubbles.transition()
