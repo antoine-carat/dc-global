@@ -23,15 +23,38 @@
   </footer>
 </body>
 <script>
-  var app = new Vue({
-    el: '#app',
-    data: {
-    },
-    mounted() {
-      var map = new Datamap({element: document.getElementById('worldmap')});
-    },
-    methods: {
-    }
-  })
+ var app = new Vue({
+   el: '#app',
+   data: {
+   },
+   mounted() {
+     var map = new Datamap({element: document.getElementById('worldmap')});
+
+     var dcguys = [{
+       name: 'Stephen',
+       radius: 30,
+       country: 'Ireland',
+       fillKey: 'red',
+       dc: 'Data center',
+       work_hours: '9-5pm',
+       latitude: 53.3498,
+       longitude: -6.2603
+     }
+     ];
+
+     //draw bubbles for bombs
+     map.bubbles(dcguys, {
+       popupTemplate: function (geo, data) {
+         return ['<div class="hoverinfo">' +  data.name,
+                 '<br/>Country: ' +  data.country + '',
+                 '<br/>Data Center: ' + data.dc + '',
+                 '<br/>Working Hours: ' + data.work_hours + '',
+                 '</div>'].join('');
+       }
+     });
+   },
+   methods: {
+   }
+ })
 </script>
 </html>
