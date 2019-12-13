@@ -34,8 +34,6 @@ class Employee
     def self.all(ids, bamboo_api)
         all_employees = bamboo_api.get_employees
         employee_time_off = bamboo_api.get_time_off
-        # all_employees = File.open("emplyees.xml") { |f| Nokogiri::XML(f) }
-        # employee_time_off = File.open("time_off.xml") { |f| Nokogiri::XML(f) }
         our_employees = all_employees.xpath('//employee').select do |employee|
             ids.include?(employee.attr('id'))
         end
