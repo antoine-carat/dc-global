@@ -656,6 +656,13 @@
 
           d3.selectAll('.datamaps-hoverover').style('display', 'none');
         })
+      .on('click', function(d) {
+        if (sidebar == false) {
+          openSidebar();
+        } else {
+          closeSidebar();
+        }
+      });
 
     bubbles.transition()
       .duration(400)
