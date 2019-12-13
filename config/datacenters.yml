@@ -1,33 +1,22 @@
 ---
-- id: IrelandDC
-  latitude: 
-  longitude:
+- id: Dublin
+  latitude: 53.2771
+  longitude: 6.4149
   country: Ireland
-  city: Dublin
-  radius: 20
-- id: MumbaiDC
-  latitude:
-  longitude:
+- id: Mumbai
+  latitude: 19.0760
+  longitude: 72.8777
   country: India
-  city: Mumbai
-  radius: 20
-- id: AtlantaDC
-  latitiude:
-  longitude:
+- id: Atlanta
+  latitiude: 33.7490
+  longitude: 84.3880
   country: United States of America
-  city: Atlanta
-  radius: 20
-- id: SacrementoDC
-  latitude:
-  longitude:
+- id: Sacramento
+  latitude: 38.5816
+  longitude: 121.4944
   country: United States of America
-  city: Sacremento
-  radius: 20
-- id: SydneyDC
-  latitude:
-  longitude:
+- id: Sydney
+  latitude: 33.8688
+  longitude: 151.2093
   country: Australia
-  city: Sydney
-  radius: 20
-  
   
