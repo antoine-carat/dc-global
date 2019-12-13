@@ -15,9 +15,7 @@
 <body>
   <h1><a href="/">DC Global</a></h1>
   <div id="app" class="container">
-    <div id="worldmap">
-
-    </div>
+    <div id="worldmap"></div>
   </div>
   <footer>
   </footer>
@@ -28,7 +26,27 @@
    data: {
    },
    mounted() {
-     var map = new Datamap({element: document.getElementById('worldmap')});
+     var map = new Datamap({
+       element: document.getElementById('worldmap'),
+       fills: {
+         HIGH: 'orange',
+         defaultFill: 'gray'
+       },
+       data: {
+         IRL: {
+           fillKey: 'HIGH'
+         },
+         USA: {
+           fillKey: 'HIGH'
+         },
+         AUS: {
+           fillKey: 'HIGH'
+         },
+         IND: {
+           fillKey: 'HIGH'
+         }
+       },
+     });
 
      var dcguys = [{
        name: 'Stephen',
@@ -39,8 +57,7 @@
        work_hours: '9-5pm',
        latitude: 53.3498,
        longitude: -6.2603
-     }
-     ];
+     }];
 
      //draw bubbles for bombs
      map.bubbles(dcguys, {
