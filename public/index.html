@@ -14,32 +14,34 @@
   <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div id="sidebar">
-        <div id="sidebar_content">
-            <h1><a href="/">DC Global</a></h1>
-            <div id="icon">
-                <svg width="100" height="100">
-                    <defs>
-                        <pattern id="image" patternUnits="userSpaceOnUse" height="100" width="100">
-                            <image id="image_url" x="0" y="0" height="100" width="100" xlink:href="40922-1-1.jpg"></image>
-                        </pattern>
-                    </defs>
-                    <circle id='top' cx="50" cy="50" r="50" fill="url(#image)"/>
-                </svg>
-            </div>
-            <div>
-                <div id="datacenter"></div>
-                <div id="country"></div>
-                <div id="firstname"></div>
-                <div id="lastname"></div>
-            </div>
-        </div>
-    </div>
-    <div id="main">
-        <div onclick="closeSidebar()" id="app" class="container">
-            <div id="worldmap"></div>
-        </div>
-    </div>
+    <div id="app" >
+      <div id="sidebar">
+          <div id="sidebar_content">
+              <h1><a href="/">DC Global</a></h1>
+              <div id="icon">
+                  <svg width="100" height="100">
+                      <defs>
+                          <pattern id="image" patternUnits="userSpaceOnUse" height="100" width="100">
+                              <image id="image_url" x="0" y="0" height="100" width="100" xlink:href="40922-1-1.jpg"></image>
+                          </pattern>
+                      </defs>
+                      <circle id='top' cx="50" cy="50" r="50" fill="url(#image)"/>
+                  </svg>
+              </div>
+              <div>
+                  <div id="datacenter"></div>
+                  <div id="country"></div>
+                  <div id="firstname"></div>
+                  <div id="lastname"></div>
+              </div>
+          </div>
+      </div>
+      <div id="main">
+          <div onclick="closeSidebar()" class="container">
+              <div id="worldmap"></div>
+          </div>
+      </div>
+  </div>
 </body>
 <script>
  var sidebar = false; // sidebar = true if sidebar is open
@@ -138,14 +140,21 @@
         axios.get('/employees')
           .then( response => {
             const EMPLOYEES = response.data;
+            this.employees = EMPLOYEES
             console.log(DCS)
             map.bubbles(DCS, { popupTemplate: function (geo, data) {
-
 
               // console.log(data.timezone.gmtOffset);
               let d = new Date();
               let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
               let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
+
+              setInterval(() => {
+                let d = new Date();
+                let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+                let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
+                document.getElementById(`time-${data.id}`).innerHTML = "Local time: " + nd
+              }, 500)
 
               let infoArray = ['<div class="hoverinfo">']
               
@@ -157,12 +166,12 @@
                 // Hack4Stack.end
                 
                 if (item.location.includes(data.id)) {
-                  infoArray.push('<img src=' + item.photo_url + '/>')
+                  infoArray.push('<img src=' + item.last_name + '.jpg />')
                   infoArray.push('<br/>Name: ' + item.first_name + ' ' + item.last_name)
                 }
               })
               infoArray.push('<br/>City: ' +  data.id + ', ' +  data.country),
-              infoArray.push('<br/>Local time: ' + nd),
+              infoArray.push('<br/><span id="time-' + data.id +'">Local time: ' + nd),
               infoArray.push('</div>')
 
               // Iterate over employees to fill images and names
