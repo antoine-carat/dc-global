@@ -17,20 +17,18 @@
     <div id="app" ref="foo">
       <div id="sidebar">
         <div id="sidebar_content">
-          <h1></h1>
+          <h1>{{ dc_engineer.city }}</h1>
               <div id="icon">
-                  <img id="sidebar_image" src="">
+                  <img id="sidebar_image" :src="dc_engineer.image">
               </div>
               <div>
-                  <div id="datacenter"></div>
-                  <div id="country"></div>
-                  <div id="firstname"></div>
-                  <div id="lastname"></div>
+                {{ dc_engineer.name }}
+              </div>
               </div>
           </div>
       </div>
       <div id="main">
-          <div @click="closeSidebar()" class="container">
+          <div onclick="vueApp.closeSidebar()" class="container">
               <div id="worldmap"></div>
           </div>
       </div>
@@ -45,7 +43,13 @@
       sidebar: false,
       bubbleclicked: false,
       employees: [],
-      datacenters: []
+      datacenters: [],
+      dc_engineer: {
+        city: "",
+        country: "",
+        image: "",
+        name: ""
+      }
     },
     mounted() {
       this.startTime()
@@ -141,9 +145,10 @@
         return i;
       },
       updateSidebar: function (data) {
-        datacenter = data.city
-        document.getElementById("datacenter").innerHTML = data.city
-        document.getElementById("country").innerHTML = data.country
+        console.log("UPDATING INFO")
+        // datacenter = data.city
+        this.dc_engineer.city = data.city
+        this.dc_engineer.country = data.country
 
         this.employees.forEach((item, index) => {
           // Hack4Stack.start
@@ -153,26 +158,29 @@
           // Hack4Stack.end
 
           if (item.location.includes(data.id)) {
-            document.getElementById("sidebar_image").src = item.last_name + ".jpg";
-            document.getElementById("firstname").innerHTML = item.first_name;
-            document.getElementById("lastname").innerHTML = item.last_name;
+            this.dc_engineer.name = `${item.first_name} ${item.last_name}`
+            this.dc_engineer.image = `${item.last_name}.jpg`;
           }
         })
+        // console.log(this.dc_engineer)
       },
       openSidebar: function (data, fromBubble) {
-        if (this.sidebar == false) {
+        this.updateSidebar(data)
+        // console.log(this.dc_engineer)
+
+        if (!this.sidebar) {
           document.getElementById("sidebar").style.marginLeft = "0px"
           this.sidebar = true
         }
         this.bubbleclicked = fromBubble
-        this.updateSidebar(data)
       },
       closeSidebar: function () {
-        if (this.bubbleclicked == false) {
+        console.log("CLOSING SIDEBAR")
+        if (!this.bubbleclicked){
           document.getElementById("sidebar").style.marginLeft = "-400px";
           this.sidebar = false;
-        };
-        this.bubbleclicked = false;
+        }
+        this.bubbleclicked = false
       }
     }
   })
