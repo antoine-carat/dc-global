@@ -664,12 +664,7 @@
           d3.selectAll('.datamaps-hoverover').style('display', 'none');
         })
       .on('click', function(d) {
-        if (sidebar == false) {
-          openSidebar(d);
-        } else {
-          updateSidebar(d);
-        }
-        bubbleclicked = true;
+        vueApp.openSidebar(d, true);
       });
 
     bubbles.transition()

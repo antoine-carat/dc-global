@@ -14,10 +14,10 @@
   <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div id="app" >
+    <div id="app" ref="foo">
       <div id="sidebar">
-          <div id="sidebar_content">
-              <h1><a href="/">DC Global</a></h1>
+        <div id="sidebar_content">
+          <h1></h1>
               <div id="icon">
                   <img id="sidebar_image" src="">
               </div>
@@ -30,232 +30,151 @@
           </div>
       </div>
       <div id="main">
-          <div onclick="closeSidebar()" class="container">
+          <div @click="closeSidebar()" class="container">
               <div id="worldmap"></div>
           </div>
       </div>
   </div>
 </body>
 <script>
- var sidebar = false; // sidebar = true if sidebar is open
- var bubbleclicked = false; // true if a sidebar has just been clicked
 
- function openSidebar(data) {
-   document.getElementById("sidebar").style.marginLeft = "0px";
-   updateSidebar(data);
-	 sidebar = true;
-   console.log("open sidebar");
- }
+  var vueApp = new Vue({
+    el: '#app',
+    data: {
+      currentTime: "0:00:00",
+      sidebar: false,
+      bubbleclicked: false,
+      employees: [],
+      datacenters: []
+    },
+    mounted() {
+      this.startTime()
+      axios.get('/datacenters')
+        .then( response => {
+          this.datacenters = response.data
+          var map = new Datamap({
+            element: document.getElementById('worldmap'),
+            geographyConfig: {
+              highlightOnHover: false,
+              borderColor: 'rgb(44, 44, 44)',
+              highlightFillColor: "blue"
+            },
+            fills: {
+              HIGH: 'orange',
+              LABEL: 'green',
+              defaultFill: 'silver',
+              highlightFillColor: 'blue'
+            }
+          });
 
- function closeSidebar() {
-   if (bubbleclicked == false) {
-     document.getElementById("sidebar").style.marginLeft = "-400px";
-	   sidebar = false;
-     console.log("close sidebar");
-   };
-   bubbleclicked = false;
- }
+          const DCS = this.datacenters.map( e => {
+            return {
+              ...e,
+              radius: 20,
+              fillKey: 'LABEL'
+            }
+          })
 
- function updateSidebar(data) {
-   datacenter = data.city
-   document.getElementById("datacenter").innerHTML = data.city
-   document.getElementById("country").innerHTML = data.country
-
-   axios.get('/employees')
-     .then( response => {
-       const EMPLOYEES = response.data;
-       this.employees = EMPLOYEES
-
-       EMPLOYEES.forEach((item, index) => {
-         // Hack4Stack.start
-         if (item.location == "Ireland") {
-           item.location = "Dublin, Ireland"
-         }
-         // Hack4Stack.end
-
-         if (item.location.includes(data.id)) {
-           document.getElementById("sidebar_image").src = item.last_name + ".jpg";
-           document.getElementById("firstname").innerHTML = item.first_name;
-           document.getElementById("lastname").innerHTML = item.last_name;
-         }
-       })
-     });
- }
-
- var app = new Vue({
-   el: '#app',
-   data: {
-     currentTime: "0:00:00",
-     employees: [],
-     datacenters: []
-   },
-   mounted() {
-    this.startTime()
-    axios.get('/datacenters')
-      .then( response => {
-        this.datacenters = response.data
-        var map = new Datamap({
-          element: document.getElementById('worldmap'),
-          geographyConfig: {
-            highlightOnHover: false,
-            borderColor: 'rgb(44, 44, 44)',
-            highlightFillColor: "blue"
-          },
-          fills: {
-            HIGH: 'orange',
-            LABEL: 'green',
-            defaultFill: 'silver',
-            highlightFillColor: 'blue'
-          },
-          data: {
+          map.updateChoropleth({
+            //TODO: Fill this from DCS
             IRL: { fillKey: 'HIGH' },
             USA: { fillKey: 'HIGH' },
             AUS: { fillKey: 'HIGH' },
             IND: { fillKey: 'HIGH' }
-          },
-        });
+          });
 
-        const DCS = this.datacenters.map( e => {
-          return {
-            ...e,
-            radius: 20,
-            fillKey: 'LABEL'
+          axios.get('/employees')
+            .then( response => {
+              const EMPLOYEES = response.data;
+              this.employees = EMPLOYEES
+              map.bubbles(DCS, { popupTemplate: function (geo, data) {
+                let d = new Date();
+                let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+                let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
+
+                let infoArray = ['<div class="hoverinfo">']
+
+                // Iterate over employees to fill images and names
+                EMPLOYEES.forEach((item, index) => {
+                  // Hack4Stack.start
+                  if (item.location == "Ireland") {
+                    item.location = "Dublin, Ireland"
+                  }
+                  // Hack4Stack.end
+
+                  if (item.location.includes(data.id)) {
+                    infoArray.push('<img src=' + item.last_name + '.jpg />')
+                    infoArray.push('<br/>Name: ' + item.first_name + ' ' + item.last_name)
+                  }
+                })
+                infoArray.push('<br/>City: ' +  data.city + ', ' +  data.country),
+                infoArray.push('<br/><span id="time-' + data.city +'">Local time: ' + nd),
+                infoArray.push('</div>')
+
+                return infoArray.join('');
+              }});
+            })
+            .catch( error => {
+              alert("SORRY, COULDN'T RETRIEVE EMPLOYEES DATA")
+              console.error(error)
+            });
+        })
+        .catch( error => {
+          alert("SORRY, COULDN'T RETRIEVE DCS DATA")
+          console.error(error)
+        });
+        this.startTime()
+    },
+    methods: {
+      startTime: function () {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = this.checkTime(m);
+        s = this.checkTime(s);
+        this.currentTime = h + ":" + m + ":" + s;
+        var t = setTimeout(this.startTime, 500);
+      },
+      checkTime: function (i) {
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+      },
+      updateSidebar: function (data) {
+        datacenter = data.city
+        document.getElementById("datacenter").innerHTML = data.city
+        document.getElementById("country").innerHTML = data.country
+
+        this.employees.forEach((item, index) => {
+          // Hack4Stack.start
+          if (item.location == "Ireland") {
+            item.location = "Dublin, Ireland"
+          }
+          // Hack4Stack.end
+
+          if (item.location.includes(data.id)) {
+            document.getElementById("sidebar_image").src = item.last_name + ".jpg";
+            document.getElementById("firstname").innerHTML = item.first_name;
+            document.getElementById("lastname").innerHTML = item.last_name;
           }
         })
-
-        axios.get('/employees')
-          .then( response => {
-            const EMPLOYEES = response.data;
-            this.employees = EMPLOYEES
-            map.bubbles(DCS, { popupTemplate: function (geo, data) {
-
-              // console.log(data.timezone.gmtOffset);
-              let d = new Date();
-              let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-              let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
-
-              let infoArray = ['<div class="hoverinfo">']
-              
-              EMPLOYEES.forEach((item, index) => {
-                // Hack4Stack.start
-                if (item.location == "Ireland") {
-                  item.location = "Dublin, Ireland"
-                }
-                // Hack4Stack.end
-                
-                if (item.location.includes(data.id)) {
-                  infoArray.push('<img src=' + item.last_name + '.jpg />')
-                  infoArray.push('<br/>Name: ' + item.first_name + ' ' + item.last_name)
-                }
-              })
-              infoArray.push('<br/>City: ' +  data.city + ', ' +  data.country),
-              infoArray.push('<br/><span id="time-' + data.city +'">Local time: ' + nd),
-              infoArray.push('</div>')
-
-              // Iterate over employees to fill images and names
-
-              return infoArray.join('');
-            }});
-          })
-          .catch( error => {
-            console.error(error)
-          });
-      })
-      .catch( error => {
-        console.error(error)
-      });
-     this.startTime()
-     axios.get('/datacenters')
-         .then( response => {
-           this.datacenters = response.data
-           var map = new Datamap({
-             element: document.getElementById('worldmap'),
-             geographyConfig: {
-               highlightOnHover: false,
-               borderColor: 'rgb(44, 44, 44)',
-               highlightFillColor: "blue"
-             },
-             fills: {
-               HIGH: 'orange',
-               LABEL: 'green',
-               defaultFill: 'silver',
-               highlightFillColor: 'blue'
-             },
-             data: {
-               IRL: { fillKey: 'HIGH' },
-               USA: { fillKey: 'HIGH' },
-               AUS: { fillKey: 'HIGH' },
-               IND: { fillKey: 'HIGH' }
-             },
-           });
-
-           const DCS = this.datacenters.map( e => {
-             return {
-               ...e,
-               radius: 20,
-               fillKey: 'LABEL'
-             }
-           })
-
-           axios.get('/employees')
-                           .then( response => {
-                             const EMPLOYEES = response.data;
-                             console.log(DCS)
-                             map.bubbles(DCS, { popupTemplate: function (geo, data) {
-
-
-                               // console.log(data.timezone.gmtOffset);
-                               let d = new Date();
-                               let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-                               let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
-
-                               let infoArray = ['<div class="hoverinfo">']
-
-                               EMPLOYEES.forEach((item, index) => {
-                                 // Hack4Stack.start
-                                 if (item.location == "Ireland") {
-                                   item.location = "Dublin, Ireland"
-                                 }
-                                 // Hack4Stack.end
-
-                                 if (item.location.includes(data.id)) {
-                                   infoArray.push('<img src=' + item.photo_url + '/>')
-                                   infoArray.push('<br/>Name: ' + item.first_name + ' ' + item.last_name)
-                                 }
-                               })
-                               infoArray.push('<br/>City: ' +  data.id + ', ' +  data.country),
-                                   infoArray.push('<br/>Local time: ' + nd),
-                                   infoArray.push('</div>')
-
-                               // Iterate over employees to fill images and names
-
-                               return infoArray.join('');
-                             }});
-                           })
-                           .catch( error => {
-                             console.error(error)
-                           });
-         })
-         .catch( error => {
-           console.error(error)
-         });
-   },
-   methods: {
-     startTime: function () {
-       var today = new Date();
-       var h = today.getHours();
-       var m = today.getMinutes();
-       var s = today.getSeconds();
-       m = this.checkTime(m);
-       s = this.checkTime(s);
-       this.currentTime = h + ":" + m + ":" + s;
-       var t = setTimeout(this.startTime, 500);
-     },
-     checkTime: function (i) {
-       if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-       return i;
-     }
-   }
- })
+      },
+      openSidebar: function (data, fromBubble) {
+        if (this.sidebar == false) {
+          document.getElementById("sidebar").style.marginLeft = "0px"
+          this.sidebar = true
+        }
+        this.bubbleclicked = fromBubble
+        this.updateSidebar(data)
+      },
+      closeSidebar: function () {
+        if (this.bubbleclicked == false) {
+          document.getElementById("sidebar").style.marginLeft = "-400px";
+          this.sidebar = false;
+        };
+        this.bubbleclicked = false;
+      }
+    }
+  })
 </script>
 </html>
