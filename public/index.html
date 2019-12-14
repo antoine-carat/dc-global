@@ -68,14 +68,12 @@
             geographyConfig: {
               highlightOnHover: false,
               borderColor: 'rgb(44, 44, 44)',
-              highlightFillColor: "blue"
             },
             fills: {
               PRESENT: 'orange',
               ON: 'green',
               OFF: 'red',
-              defaultFill: 'silver',
-              highlightFillColor: 'blue'
+              defaultFill: 'silver'
             }
           });
           let dc_codes = {}
@@ -84,6 +82,7 @@
           })
           map.updateChoropleth(dc_codes);
 
+          // TODO Pass employee ids from this.datacenter to /employees request.
           axios.get('/employees')
             .then( response => {
               const EMPLOYEES = response.data;

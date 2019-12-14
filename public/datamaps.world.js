@@ -46,14 +46,14 @@
         popupTemplate: function(geography, data) {
           return '<div class="hoverinfo"><strong>' + data.name + '</strong></div>';
         },
-        fillOpacity: 0.75,
+        fillOpacity: 0.5,
         animate: true,
         highlightOnHover: true,
-        highlightFillColor: 'blue',
+        highlightFillColor: 'rgb(36, 119, 196)',
         // highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
         highlightBorderWidth: 2,
         highlightBorderOpacity: 1,
-        highlightFillOpacity: 0.85,
+        highlightFillOpacity: 0.75,
         exitDelay: 100,
         key: JSON.stringify
     },

@@ -5,6 +5,8 @@ require_relative './bamboo_api'
 
 class Employee
     attr_reader :id
+    attr_reader :last_name
+    attr_reader :photo_url
 
     def initialize(xml)
         @id = xml.attr('id')

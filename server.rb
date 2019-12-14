@@ -2,6 +2,8 @@ require 'sinatra'
 require 'sinatra/cross_origin'
 require 'json'
 require 'yaml'
+require 'open-uri'
+
 require_relative 'src/bamboo_api'
 require_relative 'src/employee'
 require_relative 'src/timezone_api'
@@ -25,9 +27,22 @@ class DCGlobalServer < Sinatra::Base
     File.read(File.join('public', 'index.html'))
   end
 
+  # TODO Pass EMPLOYEE_IDS as a param
   get '/employees' do
     status 200
-    ::Employee.all(EMPLOYEE_IDS['ids'], API).to_json
+    employees = ::Employee.all(EMPLOYEE_IDS['ids'], API)
+
+    # Download picture if file not there.
+    employees.each do | e |
+      filename = "public/#{e.last_name}.jpg"
+      next if File.exist? filename
+
+      puts "Downloading #{filename}"
+      File.open("public/#{e.last_name}.jpg", 'wb') do |fo|
+        fo.write open(e.photo_url).read 
+      end
+    end
+    employees.to_json
   end
 
   get '/datacenters' do
