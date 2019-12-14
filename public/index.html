@@ -58,9 +58,7 @@
         .then( response => {
           this.datacenters = response.data.map( e => {
             let radius;
-            if (e.devices > 2000) {
-              radius = 30
-            } else if (e.devices > 1000) {
+            if (e.devices > 1000) {
               radius = 25
             } else if (e.devices > 500) {
               radius = 15
@@ -80,7 +78,7 @@
               borderColor: 'rgb(44, 44, 44)',
             },
             fills: {
-              PRESENT: 'orange',
+              COUNTRY_PRESENT: '#c27e3f',
               ON: 'green',
               OFF: 'red',
               defaultFill: 'silver'
@@ -88,7 +86,7 @@
           });
           let dc_codes = {}
           this.datacenters.forEach(e => {
-            dc_codes[e.country_code3] = { fillKey: 'PRESENT' }
+            dc_codes[e.country_code3] = { fillKey: 'COUNTRY_PRESENT' }
           })
           map.updateChoropleth(dc_codes);
 
@@ -115,7 +113,7 @@
                     item.location = "Dublin, Ireland"
                   }
                   // Hack4Stack.end
-
+                  // TODO Reverse this stupid dependency by puting ids in dc db
                   if (item.location.includes(data.id)) {
                     infoArray.push('<img src=' + item.last_name + '.jpg />')
                   }

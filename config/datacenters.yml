@@ -1,13 +1,21 @@
 ---
 # TODO Add employees id for each DC
-- id: Ireland
+- id: eu-west-1b
   latitude: 53.2771
   longitude: -6.4149
   city: Dublin
   country: Ireland
   country_code: IE
   country_code3: IRL
-  devices: 2429
+  devices: 1111
+- id: eu-west-1c
+  latitude: 53.3494
+  longitude: -9.2603 # For map purpose, this is set around Galway area but DC is in Dublin.
+  city: Dublin
+  country: Ireland
+  country_code: IE
+  country_code3: IRL
+  devices: 1318
 - id: Mumbai
   latitude: 19.0760
   longitude: 72.8777

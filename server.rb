@@ -9,7 +9,7 @@ require_relative 'src/employee'
 require_relative 'src/timezone_api'
 
 class DCGlobalServer < Sinatra::Base
-  API = ::BambooApi.new('51b173b2561d92e8efa344d6345f56f656300683')
+  API = ::BambooApi.new('51b173b2561d92e8efa344d6345f56f656300683') #TODO: Replace this personal key by company key
   EMPLOYEE_IDS = YAML.load_file("#{File.dirname(__FILE__)}/config/employees.yml")
   DATACENTERS = YAML.load_file("#{File.dirname(__FILE__)}/config/datacenters.yml")
   set :bind, '0.0.0.0'
