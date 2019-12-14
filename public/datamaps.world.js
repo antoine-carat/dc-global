@@ -12606,17 +12606,44 @@
     element.on('mousemove', null);
     element.on('mousemove', function() {
       var position = d3.mouse(self.options.element);
-      d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover')
-        .style('top', ( (position[1] + 30)) + "px")
-        .html(function() {
-          var data = JSON.parse(element.attr('data-info'));
-          try {
-            return options.popupTemplate(d, data);
-          } catch (e) {
-            return "";
-          }
-        })
-        .style('left', ( position[0]) + "px");
+      var popup = d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover')
+      
+      var e = window, a = 'inner';
+      if ( !( 'innerWidth' in window ) ){
+        a = 'client';
+        e = document.documentElement || document.body;
+      }
+      const windowWidth = e[ a+'Width' ]
+      const windowHeight = e[ a+'Height' ]
+      let domPopup = document.getElementsByClassName('datamaps-hoverover')[0]
+      var rect = domPopup.getBoundingClientRect();
+      let top = position[1]
+      let left = position[0]
+      
+      console.log(windowHeight)
+      console.log(windowWidth)
+      console.log(rect.top, rect.right, rect.bottom, rect.left);
+
+      if (rect.bottom > windowHeight) {
+        console.log('OVERFLOW BOTTOM')
+        top -= (rect.bottom - rect.top)
+      }
+      if (rect.right > windowWidth) {
+        console.log('OVERFLOW RIGHT')
+        left -= (rect.right - rect.left)
+      }
+      top += top < position[1] ? -30 : 30
+      popup.style('top', top + "px")
+      popup.style('left', left + "px");
+
+      popup.html(function() {
+        var data = JSON.parse(element.attr('data-info'));
+        try {
+          return options.popupTemplate(d, data);
+        } catch (e) {
+          return "";
+        }
+      })
     });
 
     d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover').style('display', 'block');
