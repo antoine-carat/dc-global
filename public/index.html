@@ -52,11 +52,18 @@
       }
     },
     mounted() {
+      var map;
       this.startTime()
       axios.get('/datacenters')
         .then( response => {
-          this.datacenters = response.data
-          var map = new Datamap({
+          this.datacenters = response.data.map( e => {
+            return {
+              ...e,
+              radius: 20,
+              fillKey: 'ON'
+            }
+          })
+          map = new Datamap({
             element: document.getElementById('worldmap'),
             geographyConfig: {
               highlightOnHover: false,
@@ -64,34 +71,24 @@
               highlightFillColor: "blue"
             },
             fills: {
-              HIGH: 'orange',
-              LABEL: 'green',
+              PRESENT: 'orange',
+              ON: 'green',
+              OFF: 'red',
               defaultFill: 'silver',
               highlightFillColor: 'blue'
             }
           });
-
-          const DCS = this.datacenters.map( e => {
-            return {
-              ...e,
-              radius: 20,
-              fillKey: 'LABEL'
-            }
+          let dc_codes = {}
+          this.datacenters.forEach(e => {
+            dc_codes[e.country_code3] = { fillKey: 'PRESENT' }
           })
-
-          map.updateChoropleth({
-            //TODO: Fill this from DCS
-            IRL: { fillKey: 'HIGH' },
-            USA: { fillKey: 'HIGH' },
-            AUS: { fillKey: 'HIGH' },
-            IND: { fillKey: 'HIGH' }
-          });
+          map.updateChoropleth(dc_codes);
 
           axios.get('/employees')
             .then( response => {
               const EMPLOYEES = response.data;
               this.employees = EMPLOYEES
-              map.bubbles(DCS, { popupTemplate: function (geo, data) {
+              map.bubbles(this.datacenters, { popupTemplate: function (geo, data) {
                 let d = new Date();
                 let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
                 let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
