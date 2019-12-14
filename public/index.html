@@ -57,9 +57,19 @@
       axios.get('/datacenters')
         .then( response => {
           this.datacenters = response.data.map( e => {
+            let radius;
+            if (e.devices > 2000) {
+              radius = 30
+            } else if (e.devices > 1000) {
+              radius = 25
+            } else if (e.devices > 500) {
+              radius = 15
+            } else {
+              radius = 10
+            }
             return {
               ...e,
-              radius: 20,
+              radius,
               fillKey: 'ON'
             }
           })
@@ -92,23 +102,25 @@
                 let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
                 let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
 
-                let infoArray = ['<div class="hoverinfo">']
+                let infoArray = ['<div class="hoverinfo">',
+                                 'City: ' +  data.city + ', ' +  data.country,
+                                 '<br/><span id="time-' + data.city +'">Local time: ' + nd + '</span>',
+                                 '<br/>Engineers: <div class="engineers-box">']
 
                 // Iterate over employees to fill images and names
                 EMPLOYEES.forEach((item, index) => {
                   // Hack4Stack.start
                   if (item.location == "Ireland") {
+                    // item.location = "Atlanta, US"
                     item.location = "Dublin, Ireland"
                   }
                   // Hack4Stack.end
 
                   if (item.location.includes(data.id)) {
                     infoArray.push('<img src=' + item.last_name + '.jpg />')
-                    infoArray.push('<br/>Name: ' + item.first_name + ' ' + item.last_name)
                   }
                 })
-                infoArray.push('<br/>City: ' +  data.city + ', ' +  data.country),
-                infoArray.push('<br/><span id="time-' + data.city +'">Local time: ' + nd),
+                infoArray.push('</div>')
                 infoArray.push('</div>')
 
                 return infoArray.join('');
@@ -124,6 +136,16 @@
           console.error(error)
         });
         this.startTime()
+        // setTimeout(() => {
+        //   console.log("CHANGE")
+        //   this.datacenters = this.datacenters.map( e => {
+        //     return {
+        //       ...e,
+        //       fillKey: e.fillKey == 'ON' ? 'OFF' : 'ON'
+        //     }
+        //   })
+        //   map.bubbles(this.datacenters)
+        // }, 10000)
     },
     methods: {
       startTime: function () {
@@ -141,7 +163,6 @@
         return i;
       },
       updateSidebar: function (data) {
-        console.log("UPDATING INFO")
         // datacenter = data.city
         this.dc_engineer.city = data.city
         this.dc_engineer.country = data.country
@@ -171,7 +192,6 @@
         this.bubbleclicked = fromBubble
       },
       closeSidebar: function () {
-        console.log("CLOSING SIDEBAR")
         if (!this.bubbleclicked){
           document.getElementById("sidebar").style.marginLeft = "-400px";
           this.sidebar = false;

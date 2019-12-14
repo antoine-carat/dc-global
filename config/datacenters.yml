@@ -7,6 +7,7 @@
   country: Ireland
   country_code: IE
   country_code3: IRL
+  devices: 2429
 - id: Mumbai
   latitude: 19.0760
   longitude: 72.8777
@@ -14,6 +15,7 @@
   country: India
   country_code: IN
   country_code3: IND
+  devices: 116
 - id: Atlanta, US
   latitude: 33.7490
   longitude: -84.3880
@@ -21,6 +23,7 @@
   country: USA
   country_code: US
   country_code3: USA
+  devices: 823
 - id: Sacramento, US
   latitude: 38.5816
   longitude: -121.4944
@@ -28,6 +31,7 @@
   country: USA
   country_code: US
   country_code3: USA
+  devices: 1488
 - id: Sydney
   latitude: -33.8688
   longitude: 151.2093
@@ -35,3 +39,4 @@
   country: Australia
   country_code: AU
   country_code3: AUS
+  devices: 131

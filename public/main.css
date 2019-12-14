@@ -1,5 +1,6 @@
 body {
   background-color: rgb(44, 44, 44);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #main {
@@ -55,4 +56,22 @@ body {
 
 .datamaps-bubble {
   cursor: pointer;
+}
+
+.engineers-box {
+  margin-top: 1%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.engineers-box img {
+  max-width: 50%;
+}
+
+.hoverinfo {
+  background-color: rgb(44, 44, 44);
+  color: whitesmoke;
+  border-radius: 5%;
 }
