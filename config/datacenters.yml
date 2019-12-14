@@ -15,13 +15,13 @@
   latitude: 33.7490
   longitude: -84.3880
   city: Atlanta
-  country: United States of America
+  country: USA
   country_code: US
 - id: Sacramento, US
   latitude: 38.5816
   longitude: -121.4944
   city: Sacramento
-  country: United States of America
+  country: USA
   country_code: US
 - id: Sydney
   latitude: -33.8688

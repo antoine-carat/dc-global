@@ -15,7 +15,7 @@
 </head>
 <body>
     <div id="app" >
-      <div id="sidebar">
+      <!-- <div id="sidebar">
           <div id="sidebar_content">
               <h1><a href="/">DC Global</a></h1>
               <div id="icon">
@@ -35,7 +35,7 @@
                   <div id="lastname"></div>
               </div>
           </div>
-      </div>
+      </div> -->
       <div id="main">
           <div onclick="closeSidebar()" class="container">
               <div id="worldmap"></div>
@@ -163,8 +163,8 @@
                   infoArray.push('<br/>Name: ' + item.first_name + ' ' + item.last_name)
                 }
               })
-              infoArray.push('<br/>City: ' +  data.id + ', ' +  data.country),
-              infoArray.push('<br/><span id="time-' + data.id +'">Local time: ' + nd),
+              infoArray.push('<br/>City: ' +  data.city + ', ' +  data.country),
+              infoArray.push('<br/><span id="time-' + data.city +'">Local time: ' + nd),
               infoArray.push('</div>')
 
               // Iterate over employees to fill images and names
