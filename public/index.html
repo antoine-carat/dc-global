@@ -17,15 +17,16 @@
     <div id="app" ref="foo">
       <div id="sidebar">
         <div id="sidebar_content">
-          <h1>{{ dc_engineer.city }}</h1>
-              <div id="icon">
-                  <img id="sidebar_image" :src="dc_engineer.image">
-              </div>
-              <div>
-                {{ dc_engineer.name }}
-              </div>
-              </div>
+          <h1>{{ dc_infos.city }}</h1>
+          <h2>{{ dc_infos.country }}</h2>
+          <h3>Engineers</h3>
+          <div class="engineers" v-if="dc_infos.engineers.length > 0">
+            <div class="engineer" v-for="eng in dc_infos.engineers" :key="eng.name">
+              <img id="sidebar_image" :src="eng.image">
+              {{ eng.name }}
+            </div>
           </div>
+        </div>
       </div>
       <div id="main">
           <div onclick="vueApp.closeSidebar()" class="container">
@@ -43,11 +44,10 @@
       bubbleclicked: false,
       employees: [],
       datacenters: [],
-      dc_engineer: {
+      dc_infos: {
         city: "",
         country: "",
-        image: "",
-        name: ""
+        engineers: []
       }
     },
     mounted() {
@@ -102,23 +102,20 @@
                                   'City: ' +  data.city + ', ' +  data.country,
                                   '<br/><span id="time-' + data.city +'">Local time: ' + nd + '</span>']
                 
-                if (data['engineers'].length > 1) {
-                  infoArray.push('<br/>Engineers: <div class="engineers-box">')
-                } else if (data['engineers'].length == 1) {
-                  infoArray.push('<br/>Engineer: <div class="engineers-box">')
-                }
-                // Iterate over employees to get avatars in popup
-                let imgTags = EMPLOYEES.map((item, index) => {
-                  if (data['engineers'].includes(item.id)) {
-                    return '<img src=' + item.last_name + '.jpg />'
-                  } else {
-                    return ''
-                  }
-                })
-                imgTags = imgTags.filter( e => e != '')
-                infoArray = infoArray.concat(imgTags)
                 if (data['engineers'].length > 0) {
-                  infoArray.push('</div>')
+                  data['engineers'].length > 1 ? infoArray.push('<br/>Engineers:') : infoArray.push('<br/>Engineer:')
+                  infoArray.push('<ul class="engineers-box">')
+                  // Iterate over employees to get names in popup
+                  let dcEmployees = EMPLOYEES.map((item, index) => {
+                    if (data['engineers'].includes(item.id)) {
+                      return '<li>' + item.first_name + ' ' + item.last_name + '</li>'
+                    } else {
+                      return ''
+                    }
+                  })
+                  dcEmployees = dcEmployees.filter( e => e != '')
+                  infoArray = infoArray.concat(dcEmployees)
+                  infoArray.push('</ul>')
                 }
                 infoArray.push('</div>')
                 return infoArray.join('');
@@ -148,27 +145,22 @@
     },
     methods: {
       updateSidebar: function (data) {
-        // datacenter = data.city
-        this.dc_engineer.city = data.city
-        this.dc_engineer.country = data.country
-
-        this.employees.forEach((item, index) => {
-          // Hack4Stack.start
-          if (item.location == "Ireland") {
-            item.location = "Dublin, Ireland"
-          }
-          // Hack4Stack.end
-
-          if (item.location.includes(data.id)) {
-            this.dc_engineer.name = `${item.first_name} ${item.last_name}`
-            this.dc_engineer.image = `${item.last_name}.jpg`;
-          }
-        })
-        // console.log(this.dc_engineer)
+        this.dc_infos.city = data.city
+        this.dc_infos.country = data.country
+        this.dc_infos.engineers = []
+        if (data['engineers'].length > 0) {
+          this.employees.forEach((item, index) => {
+            if (data['engineers'].includes(item.id)) {
+              this.dc_infos.engineers.push({
+                name: `${item.first_name} ${item.last_name}`,
+                image: `${item.last_name}.jpg`
+              })
+            }
+          })
+        }
       },
       openSidebar: function (data, fromBubble) {
         this.updateSidebar(data)
-        // console.log(this.dc_engineer)
 
         if (!this.sidebar) {
           document.getElementById("sidebar").style.marginLeft = "0px"

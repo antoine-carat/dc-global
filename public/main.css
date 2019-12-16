@@ -38,8 +38,18 @@ body {
 }
 
 #sidebar_content {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar_content .engineers {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+#sidebar_content .engineers .engineer {
+  display: flex;
+  flex-direction: column;
 }
 
 #icon {
@@ -59,15 +69,12 @@ body {
 }
 
 .engineers-box {
-  margin-top: 1%;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
-  justify-content: space-between;
-}
-
-.engineers-box img {
-  max-width: 50%;
+  list-style-type: circle;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+  margin-top: 5%;
+  padding-left: 2%;
 }
 
 .hoverinfo {
