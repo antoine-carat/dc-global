@@ -35,11 +35,10 @@
   </div>
 </body>
 <script>
-
+  // TODO: Exctract Vue to a separate folder to modularize it
   var vueApp = new Vue({
     el: '#app',
     data: {
-      currentTime: "0:00:00",
       sidebar: false,
       bubbleclicked: false,
       employees: [],
@@ -52,8 +51,8 @@
       }
     },
     mounted() {
-      var map;
-      this.startTime()
+      var map
+      let bubblesOptions = {}
       axios.get('/datacenters')
         .then( response => {
           this.datacenters = response.data.map( e => {
@@ -68,7 +67,7 @@
             return {
               ...e,
               radius,
-              fillKey: 'ON'
+              fillKey: 'UP'
             }
           })
           map = new Datamap({
@@ -79,8 +78,8 @@
             },
             fills: {
               COUNTRY_PRESENT: '#c27e3f',
-              ON: 'green',
-              OFF: 'red',
+              UP: 'green',
+              DOWN: 'red',
               defaultFill: 'silver'
             }
           });
@@ -90,39 +89,41 @@
           })
           map.updateChoropleth(dc_codes);
 
-          // TODO Pass employee ids from this.datacenter to /employees request.
           axios.get('/employees')
             .then( response => {
-              const EMPLOYEES = response.data;
-              this.employees = EMPLOYEES
-              map.bubbles(this.datacenters, { popupTemplate: function (geo, data) {
+              this.employees = response.data
+              const EMPLOYEES = this.employees
+              bubblesOptions = { popupTemplate: function (geo, data) {              
                 let d = new Date();
                 let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
                 let nd = new Date((utc + data.timezone.gmtOffset * 1000)).toLocaleTimeString();
 
                 let infoArray = ['<div class="hoverinfo">',
-                                 'City: ' +  data.city + ', ' +  data.country,
-                                 '<br/><span id="time-' + data.city +'">Local time: ' + nd + '</span>',
-                                 '<br/>Engineers: <div class="engineers-box">']
-
-                // Iterate over employees to fill images and names
-                EMPLOYEES.forEach((item, index) => {
-                  // Hack4Stack.start
-                  if (item.location == "Ireland") {
-                    // item.location = "Atlanta, US"
-                    item.location = "Dublin, Ireland"
-                  }
-                  // Hack4Stack.end
-                  // TODO Reverse this stupid dependency by puting ids in dc db
-                  if (item.location.includes(data.id)) {
-                    infoArray.push('<img src=' + item.last_name + '.jpg />')
+                                  'City: ' +  data.city + ', ' +  data.country,
+                                  '<br/><span id="time-' + data.city +'">Local time: ' + nd + '</span>']
+                
+                if (data['engineers'].length > 1) {
+                  infoArray.push('<br/>Engineers: <div class="engineers-box">')
+                } else if (data['engineers'].length == 1) {
+                  infoArray.push('<br/>Engineer: <div class="engineers-box">')
+                }
+                // Iterate over employees to get avatars in popup
+                let imgTags = EMPLOYEES.map((item, index) => {
+                  if (data['engineers'].includes(item.id)) {
+                    return '<img src=' + item.last_name + '.jpg />'
+                  } else {
+                    return ''
                   }
                 })
+                imgTags = imgTags.filter( e => e != '')
+                infoArray = infoArray.concat(imgTags)
+                if (data['engineers'].length > 0) {
+                  infoArray.push('</div>')
+                }
                 infoArray.push('</div>')
-                infoArray.push('</div>')
-
                 return infoArray.join('');
-              }});
+              }}
+              map.bubbles(this.datacenters, bubblesOptions);
             })
             .catch( error => {
               alert("SORRY, COULDN'T RETRIEVE EMPLOYEES DATA")
@@ -133,33 +134,19 @@
           alert("SORRY, COULDN'T RETRIEVE DCS DATA")
           console.error(error)
         });
-        this.startTime()
-        // setTimeout(() => {
+        // setInterval(() => {
         //   console.log("CHANGE")
         //   this.datacenters = this.datacenters.map( e => {
         //     return {
         //       ...e,
-        //       fillKey: e.fillKey == 'ON' ? 'OFF' : 'ON'
+        //       // Change a prop if DC guys are off
+        //       fillKey: 'DOWN'
         //     }
         //   })
-        //   map.bubbles(this.datacenters)
+        //   map.bubbles(this.datacenters, bubblesOptions)
         // }, 10000)
     },
     methods: {
-      startTime: function () {
-        var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = this.checkTime(m);
-        s = this.checkTime(s);
-        this.currentTime = h + ":" + m + ":" + s;
-        var t = setTimeout(this.startTime, 500);
-      },
-      checkTime: function (i) {
-        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-        return i;
-      },
       updateSidebar: function (data) {
         // datacenter = data.city
         this.dc_engineer.city = data.city

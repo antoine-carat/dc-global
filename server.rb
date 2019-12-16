@@ -10,7 +10,6 @@ require_relative 'src/timezone_api'
 
 class DCGlobalServer < Sinatra::Base
   API = ::BambooApi.new('51b173b2561d92e8efa344d6345f56f656300683') #TODO: Replace this personal key by company key
-  EMPLOYEE_IDS = YAML.load_file("#{File.dirname(__FILE__)}/config/employees.yml")
   DATACENTERS = YAML.load_file("#{File.dirname(__FILE__)}/config/datacenters.yml")
   set :bind, '0.0.0.0'
 
@@ -27,10 +26,14 @@ class DCGlobalServer < Sinatra::Base
     File.read(File.join('public', 'index.html'))
   end
 
-  # TODO Pass EMPLOYEE_IDS as a param
+  # TODO Pass employee_ids as a param
   get '/employees' do
     status 200
-    employees = ::Employee.all(EMPLOYEE_IDS['ids'], API)
+    employee_ids = []
+    DATACENTERS.each do |dc|
+      dc['engineers'].each { |eng| employee_ids.push(eng) }
+    end
+    employees = ::Employee.all(employee_ids, API)
 
     # Download picture if file not there.
     employees.each do | e |

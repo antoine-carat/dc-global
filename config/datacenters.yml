@@ -8,14 +8,18 @@
   country_code: IE
   country_code3: IRL
   devices: 1111
+  engineers:
+    - "40922"
 - id: eu-west-1c
   latitude: 53.3494
-  longitude: -9.2603 # For map purpose, this is set around Galway area but DC is in Dublin.
+  longitude: -9.2603 # For display purpose, this is set around Galway area but DC is in Dublin.
   city: Dublin
   country: Ireland
   country_code: IE
   country_code3: IRL
   devices: 1318
+  engineers:
+    - "40922"
 - id: Mumbai
   latitude: 19.0760
   longitude: 72.8777
@@ -24,6 +28,8 @@
   country_code: IN
   country_code3: IND
   devices: 116
+  engineers:
+    - "41493"
 - id: Atlanta, US
   latitude: 33.7490
   longitude: -84.3880
@@ -32,6 +38,8 @@
   country_code: US
   country_code3: USA
   devices: 823
+  engineers:
+    - "41357"
 - id: Sacramento, US
   latitude: 38.5816
   longitude: -121.4944
@@ -40,6 +48,8 @@
   country_code: US
   country_code3: USA
   devices: 1488
+  engineers:
+    - "40962"
 - id: Sydney
   latitude: -33.8688
   longitude: 151.2093
@@ -47,4 +57,6 @@
   country: Australia
   country_code: AU
   country_code3: AUS
-  devices: 131
+  devices: 
+  engineers:
+    - "41511"
